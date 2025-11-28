@@ -74,7 +74,7 @@ convertFunctions = {
     'sensor_msgs/Image':    _from_rosImage,
     }
 
-def mainFunction(bag_file, pkl_name):
+def mainFunction(bag_file, pkl_name): ## add skip or rate
     ## open bag
     bag = rosbag.Bag(bag_file)
     topic_types, topics = bag.get_type_and_topic_info()
@@ -151,11 +151,35 @@ def mainFunction(bag_file, pkl_name):
     #final_msgs['__topic_types'] = topic_types
     #final_msgs['__topics'] = topics
 
+    ### remove None
+    doing = True
+    while doing:
+        remove_idx = -1
+        for key, lst in final_msgs.items():
+            for idx, l in enumerate(lst):
+                if l[0] is None:
+                    remove_idx = idx
+                    break
+            if remove_idx >=0:
+                break
+        if remove_idx >=0:
+            ## remove remove_idx
+            print('remove : ', idx)
+            for key, lst in final_msgs.items():
+                del lst[remove_idx]
+        else:
+            ## all data is not None
+            doing = False
+
+    ### TODO: skip or rate
+
     with open(pkl_name, 'wb') as f:
         pickle.dump(final_msgs, f)
 
     return final_msgs
 
-##
-## mainFunction('test.bag', 'hsrbag000.pkl')
+## ipython
+## %autoindent
+## exec(open('python/convert_bag_to_pickle.py').read())
+## _ = mainFunction('baselinedata/2025-11-21-14-32-46.bag', 'hsrbag000.pkl')
 ##
