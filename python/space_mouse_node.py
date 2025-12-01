@@ -25,11 +25,17 @@ TODO:
   autorepeat_rate
 
 NOTE:
-right-handed / uppper:Z-axis, front:X-axis
+Right-Handed / Uppper:Z-axis, Front:X-axis
 
 sensor_msgs/Joy
   axes [linear_x, linear_y, linear_z, rotate_x, rotate_y, rotate_z]
   buttons [left_button, right_button]
+
+INSTALL:
+ pip install pyspacemouse
+ sudo apt install libhidapi-dev
+ sudo chmod a+rw /dev/hidraw* ## may exist smarter method see https://github.com/JakubAndrysek/PySpaceMouse
+
 """
 
 class SpaceMouse(object):
