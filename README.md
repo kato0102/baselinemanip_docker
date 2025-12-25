@@ -33,3 +33,18 @@ https://github.com/isri-aist/RoboManipBaselines/blob/master/doc/dataset_list.md
 ``` bash
 ./build.sh
 ```
+## bag to pkl
+ros環境で
+``` bash
+python3 conv_bag_to_pkl_with_joint.py <bag file > --outdir <outdir>
+```
+## pkl to rmb
+```bash
+source /irsl_venv/bin/activate
+python conv_pkl_to_rmb_with_joint.py <pkl file> --outdir <outdir>
+```
+## Rollout 
+source /irsl_venv/bin/activate はせずに
+```bash
+./RolloutBash.sh --checkpoint <rmb file>/policy_last.ckpt 
+```
